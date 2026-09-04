@@ -1,0 +1,19 @@
+{
+  "name": "cypress-e2e-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^28.0.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
+    "@shelex/cypress-allure-plugin": "^2.41.2",
+    "cypress": "^16.0.0",
+    "esbuild": "^0.28.2",
+    "mocha-allure-reporter": "^1.4.0"
+  }
+}
