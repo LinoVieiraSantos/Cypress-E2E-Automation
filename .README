@@ -1,0 +1,510 @@
+# Cypress Test Automation Project
+
+This project contains automated **Frontend and API tests** using **Cypress**, **Cucumber**, and **Allure Report**.
+
+The project follows a structured approach for automated testing, separating API services, step definitions, feature files, and test scenarios.
+
+# Prerequisites
+
+Before running the project, make sure you have the following installed:
+
+- Node.js
+- npm
+- Git
+
+You can verify your installations by running:
+
+```bash
+node --version
+npm --version
+git --version
+```
+
+---
+
+# Clone the Repository
+
+Clone the repository using:
+
+```bash
+git clone <REPOSITORY_URL>
+```
+
+Then navigate to the project directory:
+
+```bash
+cd project-folder-name
+```
+
+Example:
+
+```bash
+git clone https://github.com/your-username/your-repository.git
+cd your-repository
+```
+
+---
+
+# Install Dependencies
+
+After cloning the repository and accessing the project folder, install all project dependencies:
+
+```bash
+npm install
+```
+
+This command installs all dependencies defined in the project's `package.json`.
+
+If Cypress needs to be installed manually:
+
+```bash
+npm install cypress --save-dev
+```
+
+---
+
+# Run Cypress
+
+## Open Cypress in Interactive Mode
+
+```bash
+npx cypress open
+```
+
+---
+
+# Run the Complete Test Suite
+
+To execute all tests:
+
+```bash
+npx cypress run
+```
+
+If the project contains a test script configured in `package.json`:
+
+```bash
+npm test
+```
+
+---
+
+# Run a Specific Feature
+
+To execute a specific feature file:
+
+```bash
+npx cypress run --spec "cypress/e2e/path/to/feature.feature"
+```
+
+Example:
+
+```bash
+npx cypress run --spec "cypress/e2e/api/cart/createCart.feature"
+```
+
+Another example:
+
+```bash
+npx cypress run --spec "cypress/e2e/api/cart/cancelPurchase.feature"
+```
+
+---
+
+# Allure Report
+
+Allure Report is used to generate detailed and interactive test execution reports.
+
+## Install Allure
+
+```bash
+npm install --save-dev allure-commandline
+```
+
+## Generate the Allure Report
+
+After executing the tests:
+
+```bash
+npx allure generate allure-results --clean -o allure-report
+```
+
+The report will be generated inside:
+
+```text
+allure-report
+```
+
+## Open the Allure Report
+
+```bash
+npx allure open allure-report
+```
+
+## Complete Test Execution and Reporting Flow
+
+Run all tests:
+
+```bash
+npx cypress run
+```
+
+Generate the report:
+
+```bash
+npx allure generate allure-results --clean -o allure-report
+```
+
+Open the report:
+
+```bash
+npx allure open allure-report
+```
+
+---
+
+# Frontend Test Scenario Example
+
+## Scenario: Successfully Login with Valid Credentials
+
+```gherkin
+Feature: Login
+
+Scenario: Successfully login with valid credentials
+
+  Given I access the login page
+  When I enter a valid email
+  And I enter a valid password
+  And I click on the login button
+  Then I should be logged in successfully
+```
+
+## Test Flow
+
+```text
+User accesses the application
+        ↓
+User navigates to the Login page
+        ↓
+User enters a valid email
+        ↓
+User enters a valid password
+        ↓
+User clicks the Login button
+        ↓
+The system authenticates the user
+        ↓
+The user is redirected to the authenticated area
+```
+
+---
+
+# API Test Scenario Example
+
+## Scenario: Successfully Create a Shopping Cart
+
+```gherkin
+Feature: Shopping Cart
+
+Scenario: Successfully create a shopping cart
+
+  Given an authenticated user exists
+  And an available product exists
+  When I create a shopping cart with the product
+  Then the cart should be created successfully
+```
+
+## Test Flow
+
+```text
+Create a new user
+        ↓
+Validate HTTP status 201
+        ↓
+Authenticate the user
+        ↓
+Receive the authentication token
+        ↓
+Create an available product
+        ↓
+Validate HTTP status 201
+        ↓
+Retrieve the product ID
+        ↓
+Create a shopping cart containing the product
+        ↓
+Send the authentication token
+        ↓
+Validate HTTP status 201
+        ↓
+Validate the cart ID and success message
+```
+
+---
+
+# Purchase Cancellation and Stock Restoration Example
+
+## Scenario: Restore Product Stock When Cancelling a Purchase
+
+```gherkin
+Scenario: Should restore product stock when cancelling a purchase
+
+  Given an authenticated user with an existing cart
+  When I complete the purchase
+  And I cancel the purchase
+  Then the product stock should be restored
+```
+
+## Test Flow
+
+```text
+Create a new user
+        ↓
+Authenticate the user
+        ↓
+Retrieve the authentication token
+        ↓
+Create a product with available stock
+        ↓
+Create a shopping cart
+        ↓
+Complete the purchase
+        ↓
+The product stock is updated
+        ↓
+Cancel the purchase
+        ↓
+The product stock is restored
+        ↓
+Validate the original product quantity
+```
+
+---
+
+# Project Structure
+
+```text
+cypress
+│
+├── e2e
+│   │
+│   ├── frontend
+│   │   └── ...
+│   │
+│   └── api
+│       │
+│       ├── cart
+│       │   ├── createCart.feature
+│       │   ├── completePurchase.feature
+│       │   ├── cancelPurchase.feature
+│       │   └── cancelPurchaseRestock.feature
+│       │
+│       ├── users
+│       ├── products
+│       └── login
+│
+├── support
+│   │
+│   └── step_definitions
+│       │
+│       ├── api
+│       │   ├── users.steps.js
+│       │   ├── products.steps.js
+│       │   ├── login.steps.js
+│       │   └── carts.steps.js
+│       │
+│       └── ...
+│
+├── api
+│   │
+│   └── services
+│       ├── UserService.js
+│       ├── LoginService.js
+│       ├── ProductService.js
+│       └── CartService.js
+│
+├── allure-results
+├── allure-report
+│
+├── package.json
+└── README.md
+```
+
+---
+
+# Test Architecture
+
+```text
+Feature Files
+      ↓
+Step Definitions
+      ↓
+API Services / Page Objects
+      ↓
+Application / API
+```
+
+## Feature Files
+
+Feature files describe test scenarios using the Gherkin language.
+
+Example:
+
+```gherkin
+Given an authenticated user exists
+When I create a shopping cart
+Then the cart should be created successfully
+```
+
+## Step Definitions
+
+Step definitions contain the implementation of the Gherkin steps.
+
+Example:
+
+```javascript
+When(
+  "I create a shopping cart with the product",
+  function () {
+    const cart = {
+      produtos: [
+        {
+          idProduto: this.productId,
+          quantidade: 1,
+        },
+      ],
+    };
+
+    return CartService.createCart(
+      cart,
+      this.token
+    ).then((response) => {
+      this.response = response;
+    });
+  }
+);
+```
+
+## API Services
+
+API services centralize HTTP requests.
+
+Example:
+
+```javascript
+createCart(cart, token) {
+  return cy.request({
+    method: "POST",
+    url: `${Cypress.expose("apiUrl")}/carrinhos`,
+    headers: {
+      Authorization: token,
+    },
+    body: cart,
+    failOnStatusCode: false,
+  });
+}
+```
+
+This approach improves:
+
+- Code reuse
+- Test maintainability
+- Test readability
+- Separation of responsibilities
+- API request organization
+
+---
+
+# Main Commands
+
+## Install Dependencies
+
+```bash
+npm install
+```
+
+## Open Cypress
+
+```bash
+npx cypress open
+```
+
+## Run All Tests
+
+```bash
+npx cypress run
+```
+
+## Run a Specific Feature
+
+```bash
+npx cypress run --spec "cypress/e2e/api/cart/createCart.feature"
+```
+
+## Install Allure
+
+```bash
+npm install --save-dev allure-commandline
+```
+
+## Generate Allure Report
+
+```bash
+npx allure generate allure-results --clean -o allure-report
+```
+
+## Open Allure Report
+
+```bash
+npx allure open allure-report
+```
+
+---
+
+# Technologies
+
+This project uses:
+
+- JavaScript
+- Node.js
+- Cypress
+- Cucumber
+- Cypress Cucumber Preprocessor
+- Allure Report
+- API Testing
+- Frontend Testing
+- End-to-End Testing (E2E)
+- Gherkin
+
+---
+
+# Testing Coverage
+
+## Frontend
+
+- User authentication
+- Login
+- Navigation
+- User interactions
+- Validation messages
+- Application behavior
+
+## API
+
+- User creation
+- User authentication
+- Product creation
+- Product validation
+- Shopping cart creation
+- Purchase completion
+- Purchase cancellation
+- Product stock validation
+- Product stock restoration
+- HTTP status code validation
+- API response validation
+
+---
+
+# Author
+
+Developed as part of an automated testing project covering both Frontend and API testing.
