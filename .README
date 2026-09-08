@@ -1,222 +1,301 @@
-# Cypress Test Automation Project
+Cypress Test Automation Project
 
-This project contains automated **Frontend and API tests** using **Cypress**, **Cucumber**, and **Allure Report**.
+This project contains automated Frontend and API tests using Cypress, Cucumber, and Allure Report.
 
-The project follows a structured approach for automated testing, separating API services, step definitions, feature files, and test scenarios.
+The project follows a structured approach for automated testing, separating API services, page objects, step definitions, feature files, and test scenarios.
 
-# Prerequisites
+It also includes CI/CD pipelines for GitHub Actions and GitLab CI, allowing automated test execution, Allure report generation, and artifact uploads.
 
-Before running the project, make sure you have the following installed:
+Prerequisites
 
-- Node.js
-- npm
-- Git
+Before running the project, make sure you have:
 
-You can verify your installations by running:
+Node.js
 
-```bash
+npm
+
+Git
+
+Verify the installations:
+
 node --version
 npm --version
 git --version
-```
 
----
+Clone the Repository
 
-# Clone the Repository
-
-Clone the repository using:
-
-```bash
 git clone <REPOSITORY_URL>
-```
-
-Then navigate to the project directory:
-
-```bash
 cd project-folder-name
-```
 
 Example:
 
-```bash
-git clone https://github.com/your-username/your-repository.git
-cd your-repository
-```
+git clone git@github.com:LinoVieiraSantos/Cypress-E2E-Automation.git
+cd Cypress-E2E-Automation
 
----
+Cypress Version
 
-# Install Dependencies
+This project requires Cypress 15.9.0.
 
-After cloning the repository and accessing the project folder, install all project dependencies:
+The project uses this Cypress version to maintain compatibility with the current testing and reporting dependencies, including:
 
-```bash
+@badeball/cypress-cucumber-preprocessor
+
+allure-cypress
+
+cypress-on-fix
+
+The recommended Cypress version is defined in package.json:
+
+"cypress": "15.9.0"
+
+After cloning the repository, install the exact project dependencies with:
+
 npm install
-```
 
-This command installs all dependencies defined in the project's `package.json`.
+You can verify the installed Cypress version with:
 
-If Cypress needs to be installed manually:
+npx cypress --version
 
-```bash
-npm install cypress --save-dev
-```
+Expected version:
 
----
+Cypress package version: 15.9.0
 
-# Run Cypress
+Install Dependencies
 
-## Open Cypress in Interactive Mode
+Install all project dependencies:
 
-```bash
+npm install
+
+Run Cypress
+
+Open Cypress in Interactive Mode
+
+npm run test:open
+
+Or:
+
 npx cypress open
-```
 
----
+Run the Complete Test Suite
 
-# Run the Complete Test Suite
-
-To execute all tests:
-
-```bash
-npx cypress run
-```
-
-If the project contains a test script configured in `package.json`:
-
-```bash
 npm test
-```
 
----
+Or:
 
-# Run a Specific Feature
-
-To execute a specific feature file:
-
-```bash
-npx cypress run --spec "cypress/e2e/path/to/feature.feature"
-```
-
-Example:
-
-```bash
-npx cypress run --spec "cypress/e2e/api/cart/createCart.feature"
-```
-
-Another example:
-
-```bash
-npx cypress run --spec "cypress/e2e/api/cart/cancelPurchase.feature"
-```
-
----
-
-# Allure Report
-
-Allure Report is used to generate detailed and interactive test execution reports.
-
-## Install Allure
-
-```bash
-npm install --save-dev allure-commandline
-```
-
-## Generate the Allure Report
-
-After executing the tests:
-
-```bash
-npx allure generate allure-results --clean -o allure-report
-```
-
-The report will be generated inside:
-
-```text
-allure-report
-```
-
-## Open the Allure Report
-
-```bash
-npx allure open allure-report
-```
-
-## Complete Test Execution and Reporting Flow
-
-Run all tests:
-
-```bash
 npx cypress run
-```
 
-Generate the report:
+Run Tests in Headed Mode
 
-```bash
+npm run test:headed
+
+Run a Specific Feature
+
+npx cypress run --spec "cypress/e2e/path/to/feature.feature"
+
+Examples:
+
+npx cypress run --spec "cypress/e2e/api/cart/createCart.feature"
+
+npx cypress run --spec "cypress/e2e/api/cart/cancelPurchase.feature"
+
+npx cypress run --spec "cypress/e2e/frontend/login.feature"
+
+Allure Report
+
+Allure generates detailed and interactive reports for both Frontend and API test executions.
+
+Run Tests and Generate Results
+
+npm test
+
+Allure result files are generated in:
+
+allure-results
+
+Verify the generated files:
+
+ls -la allure-results
+
+Generate the Allure Report
+
+npm run allure:generate
+
+Equivalent command:
+
 npx allure generate allure-results --clean -o allure-report
-```
 
-Open the report:
+The generated report is located in:
 
-```bash
+allure-report
+
+Open the Allure Report
+
+npm run allure:open
+
+Equivalent command:
+
 npx allure open allure-report
-```
 
----
+Complete Execution Flow
 
-# Frontend Test Scenario Example
+Run Cypress Tests
+        ↓
+Generate Allure Results
+        ↓
+Generate Allure HTML Report
+        ↓
+Open Interactive Report
 
-## Scenario: Successfully Login with Valid Credentials
+Commands:
 
-```gherkin
-Feature: Login
+npm test
+npm run allure:generate
+npm run allure:open
 
-Scenario: Successfully login with valid credentials
+CI/CD
 
-  Given I access the login page
-  When I enter a valid email
-  And I enter a valid password
-  And I click on the login button
-  Then I should be logged in successfully
-```
+The project includes automated CI/CD pipelines for GitHub Actions and GitLab CI.
 
-## Test Flow
+The pipelines can:
 
-```text
+Run automated tests automatically
+
+Execute the Cypress test suite
+
+Generate Allure test results
+
+Generate the Allure HTML report
+
+Upload results as artifacts
+
+Upload the Allure report as an artifact
+
+GitHub Actions
+
+The GitHub Actions workflow is located at:
+
+.github/workflows/cypress-tests.yml
+
+Typical workflow:
+
+Code Push
+    ↓
+GitHub Actions Starts
+    ↓
+Install Dependencies
+    ↓
+Run Cypress Tests
+    ↓
+Generate Allure Results
+    ↓
+Generate Allure Report
+    ↓
+Upload Artifacts
+
+GitLab CI
+
+The GitLab pipeline configuration is located at:
+
+.gitlab-ci.yml
+
+Typical pipeline:
+
+Code Push
+    ↓
+GitLab Pipeline Starts
+    ↓
+Install Dependencies
+    ↓
+Run Cypress Tests
+    ↓
+Generate Allure Results
+    ↓
+Generate Allure Report
+    ↓
+Upload Artifacts
+
+CI/CD Artifacts
+
+The pipeline can preserve:
+
+allure-results
+
+and:
+
+allure-report
+
+These artifacts can be downloaded or inspected from the CI/CD platform after pipeline execution.
+
+CI/CD Status Badge
+
+A GitHub Actions status badge can be added to the top of the README:
+
+![Cypress Tests](https://github.com/<USERNAME>/<REPOSITORY>/actions/workflows/cypress-tests.yml/badge.svg)
+
+Replace <USERNAME> and <REPOSITORY> with the repository information.
+
+GitLab pipeline badges can also be configured directly from the GitLab project settings.
+
+Frontend Test Scenario Example
+
+Scenario: Successful Login with a Registered User
+
+Feature: User Login
+
+Scenario: Successful login with registered user
+
+  Given I visit the login page
+
+  When I login with the registered user
+
+  Then I should be redirected to the home page
+
+Test Flow
+
+Create a registered user
+
+        ↓
+
 User accesses the application
+
         ↓
+
 User navigates to the Login page
+
         ↓
-User enters a valid email
+
+User enters valid credentials
+
         ↓
-User enters a valid password
-        ↓
+
 User clicks the Login button
+
         ↓
+
 The system authenticates the user
+
         ↓
-The user is redirected to the authenticated area
-```
 
----
+The user is redirected to the home page
 
-# API Test Scenario Example
+API Test Scenario Example
 
-## Scenario: Successfully Create a Shopping Cart
+Scenario: Successfully Create a Shopping Cart
 
-```gherkin
 Feature: Shopping Cart
 
 Scenario: Successfully create a shopping cart
 
   Given an authenticated user exists
+
   And an available product exists
+
   When I create a shopping cart with the product
+
   Then the cart should be created successfully
-```
 
-## Test Flow
+Test Flow
 
-```text
 Create a new user
         ↓
 Validate HTTP status 201
@@ -238,26 +317,23 @@ Send the authentication token
 Validate HTTP status 201
         ↓
 Validate the cart ID and success message
-```
 
----
+Purchase Cancellation and Stock Restoration Example
 
-# Purchase Cancellation and Stock Restoration Example
+Scenario: Restore Product Stock When Cancelling a Purchase
 
-## Scenario: Restore Product Stock When Cancelling a Purchase
-
-```gherkin
 Scenario: Should restore product stock when cancelling a purchase
 
   Given an authenticated user with an existing cart
+
   When I complete the purchase
+
   And I cancel the purchase
+
   Then the product stock should be restored
-```
 
-## Test Flow
+Test Flow
 
-```text
 Create a new user
         ↓
 Authenticate the user
@@ -277,64 +353,61 @@ Cancel the purchase
 The product stock is restored
         ↓
 Validate the original product quantity
-```
 
----
+Project Structure
 
-# Project Structure
-
-```text
-cypress
+Cypress-E2E-Automation
 │
-├── e2e
+├── .github
+│   └── workflows
+│       └── cypress-tests.yml
+│
+├── cypress
+│   ├── e2e
+│   │   ├── frontend
+│   │   │   └── login.feature
+│   │   └── api
+│   │       ├── cart
+│   │       │   ├── createCart.feature
+│   │       │   ├── completePurchase.feature
+│   │       │   ├── cancelPurchase.feature
+│   │       │   └── cancelPurchaseRestock.feature
+│   │       ├── users
+│   │       ├── products
+│   │       └── login
 │   │
-│   ├── frontend
+│   ├── support
+│   │   ├── e2e.js
+│   │   └── step_definitions
+│   │       ├── api
+│   │       │   ├── users.steps.js
+│   │       │   ├── products.steps.js
+│   │       │   ├── login.steps.js
+│   │       │   └── carts.steps.js
+│   │       └── frontend
+│   │
+│   ├── pages
+│   │   └── LoginPage.js
+│   │
+│   ├── fixtures
 │   │   └── ...
 │   │
 │   └── api
-│       │
-│       ├── cart
-│       │   ├── createCart.feature
-│       │   ├── completePurchase.feature
-│       │   ├── cancelPurchase.feature
-│       │   └── cancelPurchaseRestock.feature
-│       │
-│       ├── users
-│       ├── products
-│       └── login
-│
-├── support
-│   │
-│   └── step_definitions
-│       │
-│       ├── api
-│       │   ├── users.steps.js
-│       │   ├── products.steps.js
-│       │   ├── login.steps.js
-│       │   └── carts.steps.js
-│       │
-│       └── ...
-│
-├── api
-│   │
-│   └── services
-│       ├── UserService.js
-│       ├── LoginService.js
-│       ├── ProductService.js
-│       └── CartService.js
+│       └── services
+│           ├── UserService.js
+│           ├── LoginService.js
+│           ├── ProductService.js
+│           └── CartService.js
 │
 ├── allure-results
 ├── allure-report
-│
+├── .gitlab-ci.yml
+├── cypress.config.js
 ├── package.json
 └── README.md
-```
 
----
+Test Architecture
 
-# Test Architecture
-
-```text
 Feature Files
       ↓
 Step Definitions
@@ -342,30 +415,25 @@ Step Definitions
 API Services / Page Objects
       ↓
 Application / API
-```
 
-## Feature Files
+Feature Files
 
-Feature files describe test scenarios using the Gherkin language.
+Feature files describe test scenarios using Gherkin.
 
-Example:
-
-```gherkin
 Given an authenticated user exists
+
 When I create a shopping cart
+
 Then the cart should be created successfully
-```
 
-## Step Definitions
+Step Definitions
 
-Step definitions contain the implementation of the Gherkin steps.
+Step definitions contain the implementation of Gherkin steps.
 
-Example:
-
-```javascript
 When(
   "I create a shopping cart with the product",
   function () {
+
     const cart = {
       produtos: [
         {
@@ -381,130 +449,189 @@ When(
     ).then((response) => {
       this.response = response;
     });
+
   }
 );
-```
 
-## API Services
+API Services
 
 API services centralize HTTP requests.
 
-Example:
-
-```javascript
 createCart(cart, token) {
+
   return cy.request({
+
     method: "POST",
+
     url: `${Cypress.expose("apiUrl")}/carrinhos`,
+
     headers: {
       Authorization: token,
     },
+
     body: cart,
+
     failOnStatusCode: false,
+
   });
+
 }
-```
 
 This approach improves:
 
-- Code reuse
-- Test maintainability
-- Test readability
-- Separation of responsibilities
-- API request organization
+Code reuse
 
----
+Test maintainability
 
-# Main Commands
+Test readability
 
-## Install Dependencies
+Separation of responsibilities
 
-```bash
+API request organization
+
+Main Commands
+
+Cypress Version
+
+This project requires Cypress 15.9.0.
+
+The project uses this Cypress version to maintain compatibility with the current testing and reporting dependencies, including:
+
+@badeball/cypress-cucumber-preprocessor
+
+allure-cypress
+
+cypress-on-fix
+
+The recommended Cypress version is defined in package.json:
+
+"cypress": "15.9.0"
+
+After cloning the repository, install the exact project dependencies with:
+
 npm install
-```
 
-## Open Cypress
+You can verify the installed Cypress version with:
 
-```bash
-npx cypress open
-```
+npx cypress --version
 
-## Run All Tests
+Expected version:
 
-```bash
-npx cypress run
-```
+Cypress package version: 15.9.0
 
-## Run a Specific Feature
+Install Dependencies
 
-```bash
+npm install
+
+Open Cypress
+
+npm run test:open
+
+Run All Tests
+
+npm test
+
+Run Tests in Headed Mode
+
+npm run test:headed
+
+Run a Specific Feature
+
 npx cypress run --spec "cypress/e2e/api/cart/createCart.feature"
-```
 
-## Install Allure
+Generate Allure Report
 
-```bash
-npm install --save-dev allure-commandline
-```
+npm run allure:generate
 
-## Generate Allure Report
+Open Allure Report
 
-```bash
-npx allure generate allure-results --clean -o allure-report
-```
+npm run allure:open
 
-## Open Allure Report
-
-```bash
-npx allure open allure-report
-```
-
----
-
-# Technologies
+Technologies
 
 This project uses:
 
-- JavaScript
-- Node.js
-- Cypress
-- Cucumber
-- Cypress Cucumber Preprocessor
-- Allure Report
-- API Testing
-- Frontend Testing
-- End-to-End Testing (E2E)
-- Gherkin
+JavaScript
 
----
+Node.js
 
-# Testing Coverage
+Cypress
 
-## Frontend
+Cucumber
 
-- User authentication
-- Login
-- Navigation
-- User interactions
-- Validation messages
-- Application behavior
+Cypress Cucumber Preprocessor
 
-## API
+Esbuild
 
-- User creation
-- User authentication
-- Product creation
-- Product validation
-- Shopping cart creation
-- Purchase completion
-- Purchase cancellation
-- Product stock validation
-- Product stock restoration
-- HTTP status code validation
-- API response validation
+Allure Report
 
----
+GitHub Actions
 
-# Author
+GitLab CI/CD
 
-Developed as part of an automated testing project covering both Frontend and API testing.
+API Testing
+
+Frontend Testing
+
+End-to-End Testing (E2E)
+
+Gherkin
+
+Testing Coverage
+
+Frontend
+
+User authentication
+
+Login
+
+Navigation
+
+User interactions
+
+Validation messages
+
+Application behavior
+
+API
+
+User creation
+
+User authentication
+
+Product creation
+
+Product validation
+
+Shopping cart creation
+
+Purchase completion
+
+Purchase cancellation
+
+Product stock validation
+
+Product stock restoration
+
+HTTP status code validation
+
+API response validation
+
+Continuous Integration Benefits
+
+The CI/CD implementation provides:
+
+Automated test execution
+
+Faster feedback after code changes
+
+Reduced risk of regressions
+
+Centralized test reports
+
+Downloadable test artifacts
+
+Improved visibility of test execution status
+
+A workflow closer to professional QA Automation and SDET practices
+
