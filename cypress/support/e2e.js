@@ -1,9 +1,7 @@
 // cypress/support/e2e.js
 
-// Import commands.js using ES2015 syntax:
-import './commands';
+// Import custom commands
+import "./commands";
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
+import "allure-cypress";
 // Add any global Cypress configurations or commands here

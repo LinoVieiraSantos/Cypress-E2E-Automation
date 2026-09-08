@@ -1,23 +1,30 @@
 const { defineConfig } = require("cypress");
 
-const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
+const createBundler = require(
+  "@bahmutov/cypress-esbuild-preprocessor"
+);
 
 const {
   addCucumberPreprocessorPlugin,
-} = require("@badeball/cypress-cucumber-preprocessor");
+} = require(
+  "@badeball/cypress-cucumber-preprocessor"
+);
 
 const {
   createEsbuildPlugin,
-} = require("@badeball/cypress-cucumber-preprocessor/esbuild");
+} = require(
+  "@badeball/cypress-cucumber-preprocessor/esbuild"
+);
+
+const {
+  allureCypress,
+} = require("allure-cypress/reporter");
+
+const cypressOnFix = require("cypress-on-fix");
+
 
 module.exports = defineConfig({
   video: false,
-
-  reporter: "mocha-allure-reporter",
-
-  reporterOptions: {
-    resultsDir: "allure-results",
-  },
 
   expose: {
     apiUrl: "https://serverest.dev",
@@ -42,14 +49,26 @@ module.exports = defineConfig({
     },
 
     async setupNodeEvents(on, config) {
-      await addCucumberPreprocessorPlugin(on, config);
+
+      on = cypressOnFix(on);
+
+      await addCucumberPreprocessorPlugin(
+        on,
+        config
+      );
 
       on(
         "file:preprocessor",
         createBundler({
-          plugins: [createEsbuildPlugin(config)],
+          plugins: [
+            createEsbuildPlugin(config),
+          ],
         })
       );
+
+      allureCypress(on, config, {
+        resultsDir: "allure-results",
+      });
 
       return config;
     },
