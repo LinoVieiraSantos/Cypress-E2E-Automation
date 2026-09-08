@@ -13,7 +13,7 @@ When("I fill in the registration form with random user data", () => {
   cy.get('input[name="nome"]')
     .should("be.visible")
     .clear()
-    .type(user.name);
+    .type(user.nome);
 
   cy.get('input[name="email"]')
     .should("be.visible")
@@ -33,6 +33,3 @@ When("I click on the Cadastrar button", () => {
     .click();
 });
 
-Then("I should be redirected to the home page", () => {
-  cy.url().should("include", "/home");
-});

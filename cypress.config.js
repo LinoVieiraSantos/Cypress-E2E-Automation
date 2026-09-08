@@ -19,6 +19,10 @@ module.exports = defineConfig({
     resultsDir: "allure-results",
   },
 
+  expose: {
+    apiUrl: "https://serverest.dev",
+  },
+
   e2e: {
     specPattern: "cypress/e2e/**/*.feature",
 
@@ -49,9 +53,5 @@ module.exports = defineConfig({
 
       return config;
     },
-  },
-
-  env: {
-    allure: true,
   },
 });

@@ -1,9 +1,10 @@
 export function createRandomUser() {
-  const randomNumber = Math.floor(Math.random() * 1000000);
+  const randomNumber = Date.now();
 
   return {
-    name: `Lino${randomNumber}`,
+    nome: `Lino${randomNumber}`,
     email: `lino${randomNumber}@test.com`,
-    password: "123456"
+    password: "123456",
+    administrador: "false"
   };
 }
